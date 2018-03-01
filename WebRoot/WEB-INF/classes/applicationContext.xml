@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+	xmlns:tx="http://www.springframework.org/schema/tx">
+
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
+		<property name="url" value="jdbc:sqlserver://localhost:1433"></property>
+		<property name="username" value="sa"></property>
+		<property name="password" value="123456"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.SQLServerDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>org/model/Dlb.hbm.xml</value>
+				<value>org/model/Kcb.hbm.xml</value>
+				<value>org/model/Xsb.hbm.xml</value>
+				<value>org/model/Cjb.hbm.xml</value>
+				<value>org/model/Zyb.hbm.xml</value>
+			</list>
+
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+
+
+	<bean id="baseDAO" class="org.dao.BaseDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+
+
+	<bean id="dlDao" class="org.dao.imp.DlDaoImp" parent="baseDAO"></bean>
+	<bean id="xsDao" class="org.dao.imp.XsDaoImp" parent="baseDAO"></bean>
+	<bean id="zyDao" class="org.dao.imp.ZyDaoImp" parent="baseDAO"></bean>
+	<bean id="kcDao" class="org.dao.imp.KcDaoImp" parent="baseDAO"></bean>
+	<bean id="cjDao" class="org.dao.imp.CjDaoImp" parent="baseDAO"></bean>
+
+
+
+	<bean id="dlService" class="org.service.imp.DlServiceManage">
+		<property name="dlDao" ref="dlDao" />
+	</bean>
+	<bean id="xsService" class="org.service.imp.XsServiceManage">
+		<property name="xsDao" ref="xsDao" />
+	</bean>
+	<bean id="zyService" class="org.service.imp.ZyServiceManage">
+		<property name="zyDao" ref="zyDao" />
+	</bean>
+	<bean id="kcService" class="org.service.imp.KcServiceManage">
+		<property name="kcDao" ref="kcDao" />
+	</bean>
+	<bean id="cjService" class="org.service.imp.CjServiceManage">
+		<property name="cjDao" ref="cjDao" />
+	</bean>
+
+
+	<bean id="dl" class="org.action.DlAction">
+		<property name="dlService" ref="dlService" />
+		<property name="xsService" ref="xsService"></property>
+	</bean>
+	<bean id="xs" class="org.action.XsAction">
+		<property name="xsService" ref="xsService"></property>
+		<property name="zyService" ref="zyService"></property>
+	</bean>
+	<bean id="kc" class="org.action.KcAction">
+		<property name="xsService" ref="xsService"></property>
+		<property name="kcService" ref="kcService"></property>
+		<property name="cjService" ref="cjService"></property>
+	</bean>
+	<bean id="cj" class="org.action.CjAction">
+		<property name="xsService" ref="xsService" />
+		<property name="kcService" ref="kcService"></property>
+		<property name="cjService" ref="cjService"></property>
+	</bean>
+
+
+</beans>

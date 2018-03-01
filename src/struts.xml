@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="default" extends="struts-default">
+		<!-- 用户登录 -->
+		<action name="login" class="dl">
+			<result name="success">/welcome.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 显示所有学生信息 -->
+		<action name="xsInfo" class="xs">
+			<result name="success">/xsInfo.jsp</result>
+		</action>
+		<!-- 显示所有课程信息 -->
+		<action name="kcInfo" class="kc">
+			<result name="success">/kcInfo.jsp</result>
+		</action>
+		<!-- 显示所有登录信息 -->
+		<action name="dlInfo" class="dl" method="look">
+			<result name="success">/dlInfo.jsp</result>
+		</action>
+		<!-- 查看某学生详细信息 -->
+		<action name="findXs" class="xs" method="findXs">
+			<result name="success">/moretail.jsp</result>
+		</action>
+		<!-- 查看某课程详细信息 -->
+		<action name="findKc" class="kc" method="findKc">
+			<result name="success">/moretail1.jsp</result>
+		</action>
+		<action name="getImage" class="xs" method="getImage">
+		</action>
+		<!-- 查看某学生登录详细信息 -->
+		<action name="findDl" class="dl" method="findDl">
+			<result name="success">/moretail2.jsp</result>
+		</action>
+		<!-- 删除某学生信息 -->
+		<action name="deleteXs" class="xs" method="deleteXs">
+			<result name="success">/success.jsp</result>
+		</action>
+		<!-- 删除某课程信息 -->
+		<action name="deleteKc" class="kc" method="deleteKc">
+			<result name="success">/success.jsp</result>
+		</action>
+		<!-- 删除某登录信息 -->
+		<action name="deleteDl" class="dl" method="deleteDl">
+			<result name="success">/success.jsp</result>
+		</action>
+		<!-- 修改某学生信息 -->
+		<action name="updateXsView" class="xs" method="updateXsView">
+			<result name="success">/updateXsView.jsp</result>
+		</action>
+		<action name="updateXs" class="xs" method="updateXs">
+			<result name="success">/success.jsp</result>
+		</action>
+		<!-- 修改某课程信息 -->
+		<action name="updateKcView" class="kc" method="updateKcView">
+			<result name="success">/updateKcView.jsp</result>
+		</action>
+		<action name="updateKc" class="kc" method="updateKc">
+			<result name="success">/success.jsp</result>
+		</action>
+		<!-- 修改某登录信息 -->
+		<action name="updateDlView" class="dl" method="updateDlView">
+			<result name="success">/updateDlView.jsp</result>
+		</action>
+		<action name="updateDl" class="dl" method="updateDl">
+			<result name="success">/success.jsp</result>
+		</action>
+		<!-- 录入学生信息 -->
+		<action name="addXsView" class="xs" method="addXsView">
+			<result name="success">/addXsInfo.jsp</result>
+		</action>
+		<action name="addXs" class="xs" method="addXs">
+			<result name="success">/success.jsp</result>
+			<result name="error">/existXs.jsp</result>
+		</action>
+		<!-- 录入学生成绩 -->
+		<action name="addXscjView" class="cj">
+			<result name="success">/addCj.jsp</result>
+		</action>
+		<action name="addorupdateXscj" class="cj" method="addorupdateXscj">
+			<result name="success">/success.jsp</result>
+		</action>
+		<!-- 录入课程信息 -->
+		<action name="addKcView" class="kc" method="addKcView">
+			<result name="success">/addKcInfo.jsp</result>
+		</action>
+		<action name="addKc" class="kc" method="addKc">
+			<result name="success">/success.jsp</result>
+			<result name="error">/existKch.jsp</result>
+		</action>
+		<!-- 录入登录信息 -->
+		<action name="addDlView" class="dl" method="addDlView">
+			<result name="success">/addDlInfo.jsp</result>
+		</action>
+		<action name="addDl" class="dl" method="addDl">
+			<result name="success">/success.jsp</result>
+			<result name="error">/existXs.jsp</result>
+		</action>
+		<!-- 显示所有学生成绩 -->
+		<action name="xscjInfo" class="cj" method="xscjInfo">
+			<result name="success">/xscjInfo.jsp</result>
+		</action>
+		<!-- 查看某个学生的成绩表 -->
+		<action name="findXscj" class="cj" method="findXscj">
+			<result name="success">/oneXscj.jsp</result>
+			<result name="error">/noXscj.jsp</result>
+		</action>
+		<!-- 删除学生成绩 -->
+		<action name="deleteOneXscj" class="cj" method="deleteOneXscj">
+			<result name="success">/success.jsp</result>
+		</action>
+	</package>
+	<!-- 设置Web应用编码集,为获取表单提交的中文信息 -->
+	<constant name="struts.il8n.encoding" value="utf-8"></constant>
+	<!-- 指定上传文件的临时保存路径,为上传图书封面照片 -->
+	<constant name="struts.multipart.saveDir" value="/tmp"></constant>
+	<!-- 设置支持动态方法调用,为在页面上用多个功能按钮实现不同的功能 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+</struts>    
